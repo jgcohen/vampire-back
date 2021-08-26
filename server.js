@@ -9,6 +9,7 @@ import { checkUser, requiereAuth} from './middleware/auth.middleware.js'
 import cors from 'cors'
 import './auth/auth.js'
 
+
 dotenv.config()
 
 const PORT = process.env.PORT || 3000

@@ -6,11 +6,39 @@ import {  getUser, getUsers } from '../controllers/userController.js'
 import { getCharacter,getCharacters,updateCharacter, deleteCharacter,addCharacter  } from '../controllers/characterController.js'
 import { catchErrors } from '../helpers.js'
 import  jwt  from 'jsonwebtoken'
+import multer from 'multer'
+
+const storage = multer.diskStorage ({
+    destination:(requete,file,cb)=>{
+        cb(null,"./public/images")
+    },
+    filename: (requete,file,cb)=>{
+        var date = new Date().toLocaleDateString()
+        cb(null,date+"-"+Math.round(Math.random()*10000)+"-"+file.originalname)
+    }
+})
+
+const fileFilter= (requete,file,cb)=>{
+    if(file.mimetype === "image/jpeg" || file.mimetype === "image/png"){
+        cb(null,true)
+    }else{
+        cb(new Error("image not valid"),false)
+    }
+}
+
+const upload =multer({
+    storage: storage,
+    limits:{
+        filesSize: 1024*1024*5
+    },
+    fileFilter: fileFilter
+})
+
  
 const router = express.Router()
 
 router.get('/', (req, res) =>{
-    res.send("Welcome to Chicago")
+    res.send("Welcome to Chicago") 
 })
 
 router.get('/city', catchErrors(getCities))
@@ -50,7 +78,7 @@ router.post('/login',(req,res,next)=>{
 
 router.get('/pnj', catchErrors(getPNJS))
 router.get('/pnj/:id', catchErrors(getPNJ))
-router.post('/pnj', catchErrors(addPNJ))
+router.post('/pnj',upload.single("image"), catchErrors(addPNJ))
 router.patch('/pnj/:id', catchErrors(updatePNJ))
 router.delete('/pnj/:id', catchErrors(deletePNJ))
 

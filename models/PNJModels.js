@@ -5,13 +5,13 @@ const PNJSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        lowercase: true,
+        
     },
     lastname: {
         type: String,
         required: true,
         trim: true,
-        lowercase: true,
+        
     },
     description:{
         type: String,
@@ -21,22 +21,22 @@ const PNJSchema = new mongoose.Schema({
     status:{
         type: String,
         trim: true,
-        lowercase: true,        
+               
     },
     race:{
         type: String,
         trim: true,
-        lowercase: true, 
+         
     },
     clan:{
         type: String,
         trim: true,
-        lowercase: true,
+        
     },
     faction:{
         type: String,
         trim: true,
-        lowercase: true,
+        
     },
 
 })

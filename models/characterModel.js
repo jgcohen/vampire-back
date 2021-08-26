@@ -550,6 +550,15 @@ const CharacterSchema = new mongoose.Schema({
       
     },
 
+    advantages:{
+        type:String
+    },
+    flaws:{
+        type:String
+    },
+    notes:{
+        type:String
+    }
 
 })
 
